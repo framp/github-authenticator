@@ -4,7 +4,7 @@ var App = require('../models/app');
 
 function error500(res, err){
   console.error(err);
-  res.send(500);
+  res.status(500).send(err);
 }
 
 module.exports = function(app){
@@ -12,8 +12,8 @@ module.exports = function(app){
     App.create(req.body)
     .then(function(app) {
       if (!app) 
-        return res.send(404);
-      res.send(201, app.values);
+        return res.status(404).send();
+      res.status(201).send(app.values);
     }, error500.bind(null, res));
   });
   
@@ -22,8 +22,8 @@ module.exports = function(app){
                         client_secret: req.query.client_secret } })
     .then(function(app) {
       if (!app) 
-        return res.send(404);
-      res.send(200, app.values);
+        return res.status(404).send();
+      res.status(200).send(app.values);
     }, error500.bind(null, res));
   });
   
@@ -34,8 +34,8 @@ module.exports = function(app){
                  returning: true })
     .then(function(app) {
       if (!app || !app[0] || !app[1] || !app[1][0]) 
-        return res.send(404);
-      res.send(200, app[1][0]);
+        return res.status(404).send();
+      res.status(200).send(app[1][0]);
     }, error500.bind(null, res));
   });
   
@@ -43,7 +43,7 @@ module.exports = function(app){
     App.destroy({ where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret } })
     .then(function(app) {
-      res.send(200, app.values);
+      res.status(200).send();
     }, error500.bind(null, res));
   });
   
@@ -51,7 +51,7 @@ module.exports = function(app){
     App.find({ where: { client_id: req.params.client_id } })
     .then(function(app) {
       if (!app) 
-        return res.send(404);
+        return res.status(404).send();
       var code = req.query.code;
       request.post({
         url: 'https://github.com/login/oauth/access_token', 
