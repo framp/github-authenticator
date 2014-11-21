@@ -16,7 +16,11 @@ Use this tool to authenticate static apps on github.
     
  - Feel free to delete your app if you want to (you still need to send your `client_secret`):
  
-    curl githubauth-framp.rhcloud.com/apps -d"_method=DELETE&name=APPNAME&client_secret=CLIENT_SECRET" 
+    curl githubauth-framp.rhcloud.com/apps -d"_method=DELETE&name=APPNAME&client_secret=CLIENT_SECRET"
+    
+ - Feel free to inspect your app if you want to (you still need to send your `client_secret`):
+ 
+    curl "githubauth-framp.rhcloud.com/apps/CLIENT_ID?client_secret=CLIENT_SECRET" 
     
  - Send your user here:
  
