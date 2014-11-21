@@ -14,7 +14,7 @@ module.exports = function(app){
   });
   
   app.put('/apps/:client_id', function(req, res, next){
-    App.update(req.body, { where: { client_id: req.body.client_id } })
+    App.update(req.body, { where: { client_id: req.params.client_id } })
     .then(function(app) {
       res.send(200, app.values);
     }, function(err){
@@ -24,7 +24,7 @@ module.exports = function(app){
   });
   
   app.get('/apps/:client_id', function(req, res, next){
-    App.find({ client_id: req.body.client_id })
+    App.find({ client_id: req.params.client_id })
     .then(function(app) {
       res.send(200, app.values);
     }, function(err){
@@ -34,7 +34,7 @@ module.exports = function(app){
   });
   
   app.get('/callback/:client_id', function(req, res, next){
-    App.find({ client_id: req.body.client_id })
+    App.find({ client_id: req.params.client_id })
     .then(function(app) {
       console.log("CANE", app.values, req.query, req.body);
       var code = req.query.code;
