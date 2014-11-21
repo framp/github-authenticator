@@ -13,6 +13,17 @@ module.exports = function(app){
     });
   });
   
+  app.get('/apps/:client_id', function(req, res, next){
+    App.find({ client_id: req.params.client_id, 
+               client_secret: req.query.client_secret })
+    .then(function(app) {
+      res.send(200, app.values);
+    }, function(err){
+      console.error(err);
+      res.send(500);
+    });
+  });
+  
   app.put('/apps/:client_id', function(req, res, next){
     App.update(req.body, 
                { where: { client_id: req.params.client_id, 
