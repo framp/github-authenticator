@@ -33,10 +33,10 @@ module.exports = function(app){
                { where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret },
                  returning: true })
-    .then(function(app) {
+    .then(function(number, rows) {
       if (!app) 
         return res.send(404);
-      res.send(200, app.values);
+      res.send(200, rows);
     }, function(err){
       console.error(err);
       res.send(500);
