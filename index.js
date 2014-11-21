@@ -2,10 +2,12 @@ var express = require('express');
 var compression = require('compression');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var serveStatic = require('serve-static');
 var requireDir = require('./lib/requireDir');
 
 var app = express();
 
+app.use(serveStatic(__dirname + '/public'));
 app.use(compression({ threshold: 512 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -10,7 +10,8 @@
     "method-override": "^2.3.0",
     "pg": "^2.0.0",
     "request": "^2.48.0",
-    "sequelize": "^2.0.0-rc2"
+    "sequelize": "^2.0.0-rc2",
+    "serve-static": "^1.7.1"
   },
   "engines": {
     "node": ">= 0.6.0",

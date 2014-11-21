@@ -1,0 +1,274 @@
+<html>
+  <head>
+    <title>GitHub Authenticator</title>
+    <meta content="">
+    <style>
+    body{
+      margin: 0px;
+      padding: 30px;
+      overflow: hidden;
+      font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+    
+    blockquote{
+      padding: 0 15px;
+      color: #777;
+      border-let: 4px solid #ddd;
+    }
+    
+    pre{
+      margin-bottom: 0;
+      word-break: normal;
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      border-radius: 3px;
+      background-color: rgba(0,0,0,0.04);
+    }
+    
+    code{
+      font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      padding: 0;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(0,0,0,0.04);
+      border-radius: 3px;
+    }
+    
+    pre>code{
+      background: none;
+    }
+    
+    p{
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    
+    h1 {
+      padding-bottom: 0.3em;
+      font-size: 2.25em;
+      line-height: 1.2;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      margin-bottom: 16px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    
+    h2 {
+      padding-bottom: 0.3em;
+      font-size: 1.75em;
+      line-height: 1.225;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    
+    h3 {
+      font-size: 1.5em;
+      line-height: 1.43;
+      position: relative;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    
+    h4{
+      font-size: 1.25em;
+      position: relative;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>
+        GitHub Authenticator
+      </h1>
+    </div>
+    <div>
+      <p>
+        Use this tool to authenticate static apps on GitHub.
+      </p>
+    </div>
+    <div>
+      <h2>
+        How to:
+      </h2>
+    </div>
+    <div>
+      <h4>
+        Create an application
+      </h4>
+    </div>
+    <div>
+      <p>
+        <a href="https://github.com/settings/applications/new">Create</a>
+        or <a href="https://github.com/settings/applications">open</a> your application settings on GitHub.
+      </p>
+    </div>
+    <div>
+      <p>
+        Set 
+        <code>
+          http://githubauth-framp.rhcloud.com/callback/CLIENT_ID
+        </code>
+        as an 
+        <code>
+          Authorization callback URL
+        </code>
+      </p>
+    </div>
+    <div>
+      <h4>
+        Register your app
+      </h4>
+    </div>
+    <div>
+      <pre>
+  <code>
+  curl githubauth-framp.rhcloud.com/apps -d"name=APPNAME&amp;client_id=CLIENT_ID&amp;client_secret=CLIENT_SECRET&amp;callback=http://your-app.com/#{ID}"
+  </code>
+  </pre>
+    </div>
+    <div>
+      <h4>
+        Update your app
+      </h4>
+    </div>
+    <div>
+      <pre>
+  <code>
+  curl githubauth-framp.rhcloud.com/apps -d"_method=PUT&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET" 
+  </code>
+  </pre>
+    </div>
+    <div>
+      <h4>
+        Delete your app
+      </h4>
+    </div>
+    <div>
+      <pre>
+  <code>
+  curl githubauth-framp.rhcloud.com/apps -d"_method=DELETE&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET"
+  </code>
+  </pre>
+    </div>
+    <div>
+      <h4>
+        Inspect your app
+      </h4>
+    </div>
+    <div>
+      <pre>
+  <code>
+  curl "githubauth-framp.rhcloud.com/apps/CLIENT_ID?client_secret=CLIENT_SECRET" 
+  </code>
+  </pre>
+    </div>
+    <div>
+      <h4>
+        Redirect your users
+      </h4>
+    </div>
+    <div>
+      <p>
+        Send your user here: 
+        <code>
+          https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=CLIENT_ID
+        </code>
+        .
+      </p>
+    </div>
+    <div>
+      <p>
+        The authenticator will redirect to the callback URL saved in the database with 
+        <code>
+          {ID}
+        </code>
+        replaced with the 
+        <code>
+          access_token
+        </code>
+      </p>
+    </div>
+    <div>
+      <h2>
+        Hosting:
+      </h2>
+    </div>
+    <div>
+      <p>
+        This script is being hosted on 
+        <code>
+          http://githubauth-framp.rhcloud.com
+        </code>
+        using the free service 
+        <a href="http://openshift.redhat.com">
+          Openshift
+        </a>
+        .
+      </p>
+    </div>
+    <div>
+      <p>
+        You'll need 
+        <code>
+          node.js
+        </code>
+        , 
+        <code>
+          postgres
+        </code>
+        and some env variables.
+      </p>
+    </div>
+    <div>
+      <pre>
+  <code>
+  OPENSHIFT_POSTGRESQL_DB_DATABASE=database
+  OPENSHIFT_POSTGRESQL_DB_USERNAME=username
+  OPENSHIFT_POSTGRESQL_DB_PASSWORD=password
+  </code>
+  </pre>
+    </div>
+    <div>
+      <p>
+        Feel free to host it somewhere else, it should be pretty trivial.
+      </p>
+    </div>
+    <div>
+      <h2>
+        Why:
+      </h2>
+    </div>
+    <div>
+      <p>
+        I just wanted to build a static app using GitHub authentication.
+      </p>
+    </div>
+    <h2>
+      License
+    </h2>
+    <div>
+      <p>
+        MIT
+      </p>
+    </div>  
+  </body>
+</html>
