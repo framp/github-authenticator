@@ -1,3 +1,5 @@
+var request = require('request');
+
 var App = require('../models/app');
 
 module.exports = function(app){
@@ -34,7 +36,23 @@ module.exports = function(app){
   app.get('/callback/:client_id', function(req, res, next){
     App.find({ client_id: req.body.client_id })
     .then(function(app) {
-      res.send(200, app.values);
+      console.log("CANE", app.values, req.query, req.body);
+      var code = req.query.code;
+      request.post({
+        url: 'https://github.com/login/oauth/access_token', 
+        {
+          client_id: app.values.client_id,
+          client_secret: app.values.client_secret,
+          code: code
+        }, 
+        header: { accept: 'json' },
+        json: true
+      }, function(err, incoming, body){
+        console.log("DIO", err, incoming, body);
+        var accessToken = body.access_token || 'error';
+        var callback = app.values.callback.replace('{ID}', accessToken);
+        res.redirect(callback);
+      })
     }, function(err){
       console.error(err);
       res.send(500);
