@@ -2,6 +2,11 @@ var request = require('request');
 
 var App = require('../models/app');
 
+function error500(err){
+  console.error(err);
+  res.send(500);
+}
+
 module.exports = function(app){
   app.post('/apps', function(req, res, next){
     App.create(req.body)
@@ -9,10 +14,7 @@ module.exports = function(app){
       if (!app) 
         return res.send(404);
       res.send(201, app.values);
-    }, function(err){
-      console.error(err);
-      res.send(500);
-    });
+    }, error500);
   });
   
   app.get('/apps/:client_id', function(req, res, next){
@@ -22,10 +24,7 @@ module.exports = function(app){
       if (!app) 
         return res.send(404);
       res.send(200, app.values);
-    }, function(err){
-      console.error(err);
-      res.send(500);
-    });
+    }, error500);
   });
   
   app.put('/apps/:client_id', function(req, res, next){
@@ -37,23 +36,15 @@ module.exports = function(app){
       if (!app || !app[0] || !app[1] || !app[1][0]) 
         return res.send(404);
       res.send(200, app[1][0]);
-    }, function(err){
-      console.error(err);
-      res.send(500);
-    });
+    }, error500);
   });
   
   app.delete('/apps/:client_id', function(req, res, next){
     App.destroy({ where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret } })
     .then(function(app) {
-      if (!app) 
-        return res.send(404);
       res.send(200, app.values);
-    }, function(err){
-      console.error(err);
-      res.send(500);
-    });
+    }, error500);
   });
   
   app.get('/callback/:client_id', function(req, res, next){
@@ -76,9 +67,6 @@ module.exports = function(app){
         var callback = app.values.callback.replace('{ID}', accessToken);
         res.redirect(callback);
       })
-    }, function(err){
-      console.error(err);
-      res.send(500);
-    });
+    }, error500);
   });
 }
