@@ -25,6 +25,17 @@ module.exports = function(app){
     });
   });
   
+  app.delete('/apps/:client_id', function(req, res, next){
+    App.destroy({ where: { client_id: req.params.client_id, 
+                          client_secret: req.body.client_secret } })
+    .then(function(app) {
+      res.send(200, app.values);
+    }, function(err){
+      console.error(err);
+      res.send(500);
+    });
+  });
+  
   app.get('/callback/:client_id', function(req, res, next){
     App.find({ client_id: req.params.client_id })
     .then(function(app) {
