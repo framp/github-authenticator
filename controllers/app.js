@@ -14,8 +14,8 @@ module.exports = function(app){
   });
   
   app.get('/apps/:client_id', function(req, res, next){
-    App.find({ client_id: req.params.client_id, 
-               client_secret: req.query.client_secret })
+    App.find({ where: { client_id: req.params.client_id, 
+                        client_secret: req.query.client_secret } })
     .then(function(app) {
       res.send(200, app.values);
     }, function(err){
@@ -48,7 +48,7 @@ module.exports = function(app){
   });
   
   app.get('/callback/:client_id', function(req, res, next){
-    App.find({ client_id: req.params.client_id })
+    App.find({ where: { client_id: req.params.client_id } })
     .then(function(app) {
       var code = req.query.code;
       request.post({
