@@ -6,6 +6,8 @@ module.exports = function(app){
   app.post('/apps', function(req, res, next){
     App.create(req.body)
     .then(function(app) {
+      if (!app) 
+        return res.send(404);
       res.send(201, app.values);
     }, function(err){
       console.error(err);
@@ -17,6 +19,8 @@ module.exports = function(app){
     App.find({ where: { client_id: req.params.client_id, 
                         client_secret: req.query.client_secret } })
     .then(function(app) {
+      if (!app) 
+        return res.send(404);
       res.send(200, app.values);
     }, function(err){
       console.error(err);
@@ -29,6 +33,8 @@ module.exports = function(app){
                { where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret } })
     .then(function(app) {
+      if (!app) 
+        return res.send(404);
       res.send(200, app.values);
     }, function(err){
       console.error(err);
@@ -40,6 +46,8 @@ module.exports = function(app){
     App.destroy({ where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret } })
     .then(function(app) {
+      if (!app) 
+        return res.send(404);
       res.send(200, app.values);
     }, function(err){
       console.error(err);
@@ -50,6 +58,8 @@ module.exports = function(app){
   app.get('/callback/:client_id', function(req, res, next){
     App.find({ where: { client_id: req.params.client_id } })
     .then(function(app) {
+      if (!app) 
+        return res.send(404);
       var code = req.query.code;
       request.post({
         url: 'https://github.com/login/oauth/access_token', 
