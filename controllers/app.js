@@ -40,7 +40,7 @@ module.exports = function(app){
       var code = req.query.code;
       request.post({
         url: 'https://github.com/login/oauth/access_token', 
-        {
+        body: {
           client_id: app.values.client_id,
           client_secret: app.values.client_secret,
           code: code
