@@ -36,6 +36,7 @@ module.exports = function(app){
     .then(function(number, rows) {
       if (!app) 
         return res.send(404);
+      console.log(arguments)
       res.send(200, rows);
     }, function(err){
       console.error(err);
