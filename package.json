@@ -26,5 +26,5 @@
     "url": "ssh://546e81c0e0b8cd7fc4000050@githubauth-framp.rhcloud.com/~/git/githubauth.git/"
   },
   "author": "Federico Rampazzo <frampone@gmail.com>",
-  "license": "ISC"
+  "license": "MIT"
 }
