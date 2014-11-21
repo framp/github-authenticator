@@ -31,7 +31,8 @@ module.exports = function(app){
   app.put('/apps/:client_id', function(req, res, next){
     App.update(req.body, 
                { where: { client_id: req.params.client_id, 
-                          client_secret: req.body.client_secret } })
+                          client_secret: req.body.client_secret },
+                 returning: true })
     .then(function(app) {
       if (!app) 
         return res.send(404);
