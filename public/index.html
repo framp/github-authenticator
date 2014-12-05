@@ -97,16 +97,9 @@
   <body>
     <div>
       <h1>
-        GitHub Authenticator
+        <a href="https://github.com/framp/github-authenticator">GitHub Authenticator</a>
       </h1>
     </div>
-    <div>
-      <p>
-        Use this tool to authenticate static apps on GitHub.
-      </p>
-    </div>
-    <div>
-      <h2>
         How to:
       </h2>
     </div>
@@ -125,7 +118,7 @@
       <p>
         Set 
         <code>
-          http://githubauth-framp.rhcloud.com/callback/CLIENT_ID
+          http://<span class="domain"></span>/callback/CLIENT_ID
         </code>
         as an 
         <code>
@@ -141,7 +134,7 @@
     <div>
       <pre>
   <code>
-  curl githubauth-framp.rhcloud.com/apps -d"name=APPNAME&amp;client_id=CLIENT_ID&amp;client_secret=CLIENT_SECRET&amp;callback=http://your-app.com/#{ID}"
+  curl <span class="domain"></span>/apps -d"name=APPNAME&amp;client_id=CLIENT_ID&amp;client_secret=CLIENT_SECRET&amp;callback=http://your-app.com/#{ID}"
   </code>
   </pre>
     </div>
@@ -153,7 +146,7 @@
     <div>
       <pre>
   <code>
-  curl githubauth-framp.rhcloud.com/apps -d"_method=PUT&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET" 
+  curl <span class="domain"></span>/apps -d"_method=PUT&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET" 
   </code>
   </pre>
     </div>
@@ -165,7 +158,7 @@
     <div>
       <pre>
   <code>
-  curl githubauth-framp.rhcloud.com/apps -d"_method=DELETE&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET"
+  curl <span class="domain"></span>/apps -d"_method=DELETE&amp;name=APPNAME&amp;client_secret=CLIENT_SECRET"
   </code>
   </pre>
     </div>
@@ -177,7 +170,7 @@
     <div>
       <pre>
   <code>
-  curl "githubauth-framp.rhcloud.com/apps/CLIENT_ID?client_secret=CLIENT_SECRET" 
+  curl "<span class="domain"></span>/apps/CLIENT_ID?client_secret=CLIENT_SECRET" 
   </code>
   </pre>
     </div>
@@ -207,68 +200,10 @@
         </code>
       </p>
     </div>
-    <div>
-      <h2>
-        Hosting:
-      </h2>
-    </div>
-    <div>
-      <p>
-        This script is being hosted on 
-        <code>
-          http://githubauth-framp.rhcloud.com
-        </code>
-        using the free service 
-        <a href="http://openshift.redhat.com">
-          Openshift
-        </a>
-        .
-      </p>
-    </div>
-    <div>
-      <p>
-        You'll need 
-        <code>
-          node.js
-        </code>
-        , 
-        <code>
-          postgres
-        </code>
-        and some env variables.
-      </p>
-    </div>
-    <div>
-      <pre>
-  <code>
-  OPENSHIFT_POSTGRESQL_DB_DATABASE=database
-  OPENSHIFT_POSTGRESQL_DB_USERNAME=username
-  OPENSHIFT_POSTGRESQL_DB_PASSWORD=password
-  </code>
-  </pre>
-    </div>
-    <div>
-      <p>
-        Feel free to host it somewhere else, it should be pretty trivial.
-      </p>
-    </div>
-    <div>
-      <h2>
-        Why:
-      </h2>
-    </div>
-    <div>
-      <p>
-        I just wanted to build a static app using GitHub authentication.
-      </p>
-    </div>
-    <h2>
-      License
-    </h2>
-    <div>
-      <p>
-        MIT
-      </p>
-    </div>  
+    <script>
+      var domainElements = document.getElementsByClassName('domain');
+      var setDomain = function(e){ e.innerText = document.domain; };
+      Array.prototype.slice.apply(domainElements).forEach(setDomain)
+    </script>
   </body>
 </html>
