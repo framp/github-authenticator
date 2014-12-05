@@ -51,7 +51,7 @@ You'll need `node.js`, `postgres` and some env variables.
     OPENSHIFT_POSTGRESQL_DB_USERNAME=username
     OPENSHIFT_POSTGRESQL_DB_PASSWORD=password
 
-##Hosting on OpenShift:
+##Hosting on Heroku:
 You'll need `node.js` and the `postgres` cartridge
   
 ##Why:
