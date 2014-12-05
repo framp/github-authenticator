@@ -22,10 +22,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "ssh://546e81c0e0b8cd7fc4000050@githubauth-framp.rhcloud.com/~/git/githubauth.git/"
-  },
+  "repository": "https://github.com/framp/github-authenticator",
   "author": "Federico Rampazzo <frampone@gmail.com>",
   "license": "MIT"
 }
