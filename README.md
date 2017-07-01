@@ -1,4 +1,4 @@
-#GitHub Authenticator
+# GitHub Authenticator
 
 Use this tool to authenticate static apps on GitHub.
 
@@ -10,7 +10,7 @@ Feel free to use them - but they're free instances and they will temporarily go 
 
 You may want to use something better.
 
-##How to:
+## How to:
 
     URL=https://github-authenticator.herokuapp.com
     #OR
@@ -18,44 +18,44 @@ You may want to use something better.
     #OR
     URL=https://yourownhost.com
 
-####Create an application
+#### Create an application
 [Create](https://github.com/settings/applications/new) or [open](https://github.com/settings/applications) your application settings on GitHub.
 
 Set `URL/callback/CLIENT_ID` as an `Authorization callback URL`
 
-####Register your app
+#### Register your app
 
     curl URL/apps -d"name=APPNAME&client_id=CLIENT_ID&client_secret=CLIENT_SECRET&callback=http://your-app.com/#{ID}"
 
-####Update your app
+#### Update your app
 
     curl URL/apps -d"_method=PUT&name=APPNAME&client_secret=CLIENT_SECRET" 
     
-####Delete your app
+#### Delete your app
 
     curl URL/apps -d"_method=DELETE&name=APPNAME&client_secret=CLIENT_SECRET"
 
-####Inspect your app
+#### Inspect your app
 
     curl "URL/apps/CLIENT_ID?client_secret=CLIENT_SECRET" 
     
-####Redirect your users
+#### Redirect your users
 Send your user here: `https://github.com/login/oauth/authorize?scope=user:email&client_id=CLIENT_ID`.
 
 The authenticator will redirect to the callback URL saved in the database with `{ID}` replaced with the `access_token`
     
-##Hosting on OpenShift:
+## Hosting on OpenShift:
 You'll need `node.js`, `postgres` and some env variables.
   
     OPENSHIFT_POSTGRESQL_DB_DATABASE=database
     OPENSHIFT_POSTGRESQL_DB_USERNAME=username
     OPENSHIFT_POSTGRESQL_DB_PASSWORD=password
 
-##Hosting on Heroku:
+## Hosting on Heroku:
 You'll need `node.js` and the `postgres` cartridge
   
-##Why:
+## Why:
 I just wanted to build a static app using GitHub authentication.
 
-##License
+## License
 MIT
