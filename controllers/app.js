@@ -1,14 +1,14 @@
-var request = require('request');
+const request = require('request');
 
-var App = require('../models/app');
+const App = require('../models/app');
 
-function error500(res, err){
+const error500 = (res, err) => {
   console.error(err);
   res.status(500).send(err);
 }
 
-module.exports = function(app){
-  app.post('/apps', function(req, res, next){
+module.exports = (app) => {
+  app.post('/apps',  (req, res, next) => {
     App.create(req.body)
     .then(function(app) {
       if (!app) 
@@ -17,7 +17,7 @@ module.exports = function(app){
     }, error500.bind(null, res));
   });
   
-  app.get('/apps/:client_id', function(req, res, next){
+  app.get('/apps/:client_id',  (req, res, next) => {
     App.find({ where: { client_id: req.params.client_id, 
                         client_secret: req.query.client_secret } })
     .then(function(app) {
@@ -27,7 +27,7 @@ module.exports = function(app){
     }, error500.bind(null, res));
   });
   
-  app.put('/apps/:client_id', function(req, res, next){
+  app.put('/apps/:client_id',  (req, res, next) => {
     App.update(req.body, 
                { where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret },
@@ -39,7 +39,7 @@ module.exports = function(app){
     }, error500.bind(null, res));
   });
   
-  app.delete('/apps/:client_id', function(req, res, next){
+  app.delete('/apps/:client_id',  (req, res, next) => {
     App.destroy({ where: { client_id: req.params.client_id, 
                           client_secret: req.body.client_secret } })
     .then(function(app) {
@@ -47,12 +47,12 @@ module.exports = function(app){
     }, error500.bind(null, res));
   });
   
-  app.get('/callback/:client_id', function(req, res, next){
+  app.get('/callback/:client_id',  (req, res, next) => {
     App.find({ where: { client_id: req.params.client_id } })
     .then(function(app) {
       if (!app) 
         return res.status(404).send();
-      var code = req.query.code;
+      const code = req.query.code;
       request.post({
         url: 'https://github.com/login/oauth/access_token', 
         body: {
@@ -62,9 +62,9 @@ module.exports = function(app){
         }, 
         header: { accept: 'json' },
         json: true
-      }, function(err, incoming, body){
-        var accessToken = body.access_token || 'error';
-        var callback = app.values.callback.replace('{ID}', accessToken);
+      }, (err, incoming, body) => {
+        const accessToken = body.access_token || 'error';
+        const callback = app.values.callback.replace('{ID}', accessToken);
         res.redirect(callback);
       })
     }, error500.bind(null, res));

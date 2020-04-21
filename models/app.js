@@ -1,5 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../lib/database');
+const Sequelize = require('sequelize');
+const sequelize = require('../lib/database');
 
 module.exports = sequelize.define('App', {
   name: Sequelize.STRING,

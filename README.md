@@ -2,19 +2,16 @@
 
 Use this tool to authenticate static apps on GitHub.
 
-The application is hosted on free instances:
+The application is hosted on this free instance:
  - [Heroku](https://heroku.com), `https://github-authenticator.herokuapp.com` 
- - [OpenShift](http://openshift.redhat.com), `https://githubauth-framp.rhcloud.com`
  
-Feel free to use them - but they're free instances and they will temporarily go down if you don't use them (which means the first request may take longer than usual).
+Feel free to use it - but it's a free instance and it will temporarily go down if you don't use it (which means the first request may take longer than usual).
 
 You may want to use something better.
 
 ## How to:
 
     URL=https://github-authenticator.herokuapp.com
-    #OR
-    URL=https://githubauth-framp.rhcloud.com
     #OR
     URL=https://yourownhost.com
 
@@ -43,13 +40,6 @@ Set `URL/callback/CLIENT_ID` as an `Authorization callback URL`
 Send your user here: `https://github.com/login/oauth/authorize?scope=user:email&client_id=CLIENT_ID`.
 
 The authenticator will redirect to the callback URL saved in the database with `{ID}` replaced with the `access_token`
-    
-## Hosting on OpenShift:
-You'll need `node.js`, `postgres` and some env variables.
-  
-    OPENSHIFT_POSTGRESQL_DB_DATABASE=database
-    OPENSHIFT_POSTGRESQL_DB_USERNAME=username
-    OPENSHIFT_POSTGRESQL_DB_PASSWORD=password
 
 ## Hosting on Heroku:
 You'll need `node.js` and the `postgres` cartridge

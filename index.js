@@ -1,24 +1,23 @@
-var express = require('express');
-var compression = require('compression');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var serveStatic = require('serve-static');
-var requireDir = require('./lib/requireDir');
+const express = require('express');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const serveStatic = require('serve-static');
+const controller = require('./controllers/app');
 
-var app = express();
+const app = express();
 
 app.use(serveStatic(__dirname + '/public'));
 app.use(compression({ threshold: 512 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride(function(req, res){
+app.use(methodOverride((req, res) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    var method = req.body._method;
+    const method = req.body._method;
     delete req.body._method;
     return method;
   }
 }));
-requireDir(__dirname + '/controllers', app);
+controller(app);
 
-app.listen(process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000,
-           process.env.OPENSHIFT_NODEJS_IP);
+app.listen(process.env.PORT || 3000);

@@ -1,26 +1,28 @@
 {
   "name": "github-authenticator",
-  "version": "1.0.0",
-  "description": "The OpenShift `nodejs` cartridge documentation can be found at:",
+  "version": "2.0.0",
+  "description": "A backend service to complete github OAuth2 flow",
   "main": "index.js",
   "dependencies": {
-    "body-parser": "^1.9.2",
-    "compression": "^1.2.0",
-    "express": "^4.10.2",
-    "method-override": "^2.3.0",
-    "pg": "^2.0.0",
-    "request": "^2.48.0",
-    "sequelize": "^2.0.0-rc2",
-    "serve-static": "^1.7.1"
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "pg": "^8.0.2",
+    "pg-hstore": "^2.3.3",
+    "request": "^2.88.2",
+    "sequelize": "^5.21.6",
+    "serve-static": "^1.14.1"
   },
-  "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
+  "devDependencies": {
+    "prettier": "^2.0.4",
+    "standard": "^14.3.3"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "beautify": "prettier --write controllers lib models && standard --fix",
+    "lint": "standard",
+    "test": "echo 🤷"
   },
   "repository": "https://github.com/framp/github-authenticator",
   "author": "Federico Rampazzo <frampone@gmail.com>",
